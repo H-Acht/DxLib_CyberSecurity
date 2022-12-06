@@ -1,5 +1,10 @@
 #pragma once
 
+#define SHOT 20
+#define ENEMY 30
+
+#include "DxLib.h"
+
 namespace Game
 {
     //ウィンドウモード設定
