@@ -1,10 +1,5 @@
-#include "DxLib.h"
-
 #include "game.h"
-#include "Player.h"
-#include "Enemy.h"
-
-#define ENEMY 30
+#include "SceneManager.h"
 
 //プログラムはWin Mainから始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -24,14 +19,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     //ダブルバッファモード
     SetDrawScreen(DX_SCREEN_BACK);
 
-    Player player;
-    Init(player);
-
-    Enemy enemy[ENEMY];
-    for (int i = 0; i < ENEMY; i++)
-    {
-        Init(enemy[i]);
-    }
+    SceneManager scene;
+    scene.init();
 
     while (ProcessMessage() == 0)
     {
@@ -40,24 +29,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         //画面のクリア
         ClearDrawScreen();
 
-        Update(player);
-        Draw(player);
-
-        enemy->count++;
-        if (enemy->count % 60 == 0)
-        {
-            for (int i = 0; i < ENEMY; i++)
-            {
-                Update(enemy[i]);
-                Draw(enemy[i]);
-            }
-        }
-
-
+        scene.update();
+        scene.draw();
 
         //裏画面と表画面を切り替える
         ScreenFlip();
-
 
         //escキーで終了
         if (CheckHitKey(KEY_INPUT_ESCAPE))   break;

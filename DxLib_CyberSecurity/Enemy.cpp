@@ -1,22 +1,57 @@
 #include "Enemy.h"
-#include "DxLib.h"
+#include "game.h"
 
-void Init(Enemy& enemy)
+void Enemy::Init()
 {
-	enemy.eGraph = LoadGraph("Data/V1.png");
+	eGraph = LoadGraph("Data/V1.png");
+	ePosX = GetRand(1200);
+	ePosY = -30;
 
-	enemy.ePosX = GetRand(1200);
-	enemy.ePosY = 0;
+	DamageGraph = LoadGraph("Data/VD1.png");
+	DamageFlag = false;
+	DamageCount = 0;
+	Exist = true;
+	hitBox = true;
 
-	GetGraphSize(enemy.eGraph, &enemy.eWidth, &enemy.eHeight);
+	GetGraphSize(eGraph, &eWidth, &eHeight);
 }
 
-void Update(Enemy& enemy)
+void Enemy::Update()
 {
-	enemy.ePosY += 1;
+	ePosY += 3;
+	
+	//’e‚ª5‰ñ“–‚½‚Á‚½
+	if (DamageCount >= 5)
+	{
+		ePosY -= 3;
+		//‘¶İ‚ğÁ‚·
+		Exist = false;
+		//“–‚½‚è”»’è‚ğÁ‚·
+		hitBox = false;
+	}
 }
 
-void Draw(Enemy& enemy)
+void Enemy::Draw()
 {
-	DrawGraph(enemy.ePosX, enemy.ePosY, enemy.eGraph, true);
+	if (DamageFlag == true)
+	{
+		if (DamageCount <= 5)
+		{
+			DrawGraph(ePosX, ePosY, DamageGraph, TRUE);
+
+			DamageTimer++;
+
+			if (DamageTimer == 10)
+			{
+				DamageFlag = false;
+			}
+		}
+	}
+	else
+	{
+		if (Exist == true)
+		{
+			DrawGraph(ePosX, ePosY, eGraph, true);
+		}
+	}
 }
