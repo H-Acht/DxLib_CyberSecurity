@@ -14,7 +14,7 @@ public:
 	bool prevShotFlag = false;
 	
 	void Init();
+	void End();
 	void Update(Shot shot[], int shotArraySize);
 	void Draw();
 };
-

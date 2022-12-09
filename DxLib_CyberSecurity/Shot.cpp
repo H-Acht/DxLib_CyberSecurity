@@ -11,26 +11,34 @@ void Shot::Init()
 	GetGraphSize(sGraph, &sWidth, &sHeight);
 }
 
-void Shot::Update(Enemy& enemy)
+void Shot::End()
+{
+	DeleteGraph(sGraph);
+}
+
+void Shot::Update(Enemy enemy[])
 {
 	if (Exist == true)
 	{
-		if (enemy.hitBox == true)
+		for (int i =0; i < ENEMY; i++)
 		{
-			//“–‚½‚è”»’è
-			if (((sPosX > enemy.ePosX && sPosX < enemy.ePosX + enemy.eWidth) ||
-				(enemy.ePosX > sPosX && enemy.ePosX < sPosX + sWidth)) &&
-				((sPosY > enemy.ePosY && sPosY < enemy.ePosY + enemy.eHeight) ||
-					(enemy.ePosY > sPosY && enemy.ePosY < sPosY + sHeight)))
+			if (enemy[i].hitBox == true)
 			{
-				Exist = 0;
+				//“–‚½‚è”»’è
+				if (((sPosX > enemy[i].ePosX && sPosX < enemy[i].ePosX + enemy[i].eWidth) ||
+					(enemy[i].ePosX > sPosX && enemy[i].ePosX < sPosX + sWidth)) &&
+					((sPosY > enemy[i].ePosY && sPosY < enemy[i].ePosY + enemy[i].eHeight) ||
+						(enemy[i].ePosY > sPosY && enemy[i].ePosY < sPosY + sHeight)))
+				{
+					Exist = 0;
 
-				enemy.DamageFlag = true;
-				enemy.DamageTimer = 0;
-				enemy.DamageCount += 1;
+					enemy[i].DamageFlag = true;
+					enemy[i].DamageTimer = 0;
+					enemy[i].DamageCount += 1;
+				}
 			}
 		}
-		sPosY -= 16;
+		sPosY -= 18;
 
 		if (sPosY < 0 - sHeight)
 		{

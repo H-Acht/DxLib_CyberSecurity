@@ -16,6 +16,11 @@ void Enemy::Init()
 	GetGraphSize(eGraph, &eWidth, &eHeight);
 }
 
+void Enemy::End()
+{
+	DeleteGraph(eGraph);
+}
+
 void Enemy::Update()
 {
 	ePosY += 3;

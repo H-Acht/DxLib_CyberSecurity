@@ -1,5 +1,8 @@
 #include "game.h"
 #include "SceneManager.h"
+#include "Player.h"
+#include "Enemy.h"
+#include "Shot.h"
 
 //プログラムはWin Mainから始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -43,6 +46,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         {
         }
     }
+
+    scene.end();
 
     DxLib_End();            // ＤＸライブラリ使用の終了処理
 

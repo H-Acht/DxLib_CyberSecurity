@@ -12,6 +12,11 @@ void Player::Init()
 	pPosY = Game::kScreenHeight-150;
 }
 
+void Player::End()
+{
+	DeleteGraph(pGraph);
+}
+
 void Player::Update(Shot shot[], int shotArraySize)
 {
 	if (CheckHitKey(KEY_INPUT_UP) == 1)
